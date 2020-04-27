@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import ManaBar from '../../components/manaBar';
 import PowerCard from '../../components/powerCard';
+import Box from '../../components/box';
 import { MIDDLE_AGE_MAP } from '../maps';
 
 const StyledContainer = styled.div`
@@ -12,12 +13,6 @@ const StyledContainer = styled.div`
 
 const StyledRow = styled.div`
   display: flex;
-`;
-
-const StyledBox = styled.div`
-  border: 1px solid red;
-  width: 100px;
-  height: 100px;
 `;
 
 const StyledCardsContainer = styled.div`
@@ -31,16 +26,16 @@ const MiddleAge = (props) => {
       {MIDDLE_AGE_MAP.map((row, rowIndex) => (
         <StyledRow key={rowIndex}>
           {row.map((box, boxIndex) => (
-            <StyledBox key={boxIndex}>{JSON.stringify(box.type)}</StyledBox>
+            <Box key={boxIndex} type={JSON.stringify(box.type)} />
           ))}
         </StyledRow>
       ))}
       <ManaBar mana={5} />
       <StyledCardsContainer>
-        <PowerCard manaCost={1} />
-        <PowerCard manaCost={1} />
-        <PowerCard manaCost={1} />
-        <PowerCard manaCost={1} />
+        <PowerCard name="FIRE" manaCost={1} />
+        <PowerCard name="TWISTER" manaCost={2} />
+        <PowerCard name="THUNDER" manaCost={3} />
+        <PowerCard name="ICE POISON" manaCost={4} />
       </StyledCardsContainer>
     </StyledContainer>
   );
