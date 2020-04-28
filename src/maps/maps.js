@@ -9,7 +9,7 @@ export const MIDDLE_AGE_MAP = [
     getItemType('cannon', 30, 5),
   ],
   [getBoxType('grass'), getBoxType('grass'), getBoxType('grass')],
-  [getBoxType('water'), getBoxType('grass'), getBoxType('water')],
+  [getBoxType('wood'), getBoxType('water'), getBoxType('wood')],
   [getBoxType('grass'), getBoxType('grass'), getBoxType('grass')],
   [
     getItemType('cannon', 30, 5),

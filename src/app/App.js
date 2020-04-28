@@ -1,13 +1,14 @@
 import React from 'react';
 import MiddleAge from '../maps/middleAge';
 import { DndProvider } from 'react-dnd';
-import Backend from 'react-dnd-html5-backend';
+import MultiBackend from 'react-dnd-multi-backend';
+import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <DndProvider backend={Backend}>
+      <DndProvider backend={MultiBackend} options={HTML5toTouch}>
         <MiddleAge />
       </DndProvider>
     </div>

@@ -3,7 +3,33 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDrop } from 'react-dnd';
 
+import wood from '../../assets/textures/wood.png';
+import grass from '../../assets/textures/grass.png';
+import floor from '../../assets/textures/floor.png';
+import earth from '../../assets/textures/earth.png';
+import water from '../../assets/textures/water.png';
+
+const handleBoxType = (type) => {
+  switch (type) {
+    case 'wood':
+      return wood;
+    case 'grass':
+      return grass;
+    case 'cannon':
+      return floor;
+    case 'tower':
+      return earth;
+    case 'water':
+      return water;
+    default:
+      return null;
+  }
+};
+
 const StyledBox = styled.div`
+  /* background-color: black; */
+  background-image: url(${({ type }) => handleBoxType(type)});
+  background-size: cover;
   border: 1px solid red;
   width: 100px;
   height: 100px;
@@ -19,15 +45,20 @@ const Box = ({ type }) => {
     }),
   });
   const isActive = canDrop && isOver;
-  let backgroundColor = '#222';
+  let backgroundColor = '#fff';
   if (isActive) {
     backgroundColor = 'darkgreen';
   } else if (canDrop) {
-    backgroundColor = 'darkkhaki';
+    backgroundColor = 'grey';
   }
 
   return (
-    <StyledBox ref={drop} style={{ backgroundColor }}>
+    <StyledBox
+      ref={drop}
+      type={type}
+      // bgColor={backgroundColor}
+      style={{ backgroundColor }}
+    >
       {type}
     </StyledBox>
   );

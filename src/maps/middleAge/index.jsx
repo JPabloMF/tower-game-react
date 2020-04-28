@@ -26,7 +26,7 @@ const MiddleAge = (props) => {
       {MIDDLE_AGE_MAP.map((row, rowIndex) => (
         <StyledRow key={rowIndex}>
           {row.map((box, boxIndex) => (
-            <Box key={boxIndex} type={JSON.stringify(box.type)} />
+            <Box key={boxIndex} type={box.type} />
           ))}
         </StyledRow>
       ))}
