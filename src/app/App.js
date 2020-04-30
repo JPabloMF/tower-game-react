@@ -3,6 +3,7 @@ import MiddleAge from '../maps/middleAge';
 import { DndProvider } from 'react-dnd';
 import MultiBackend from 'react-dnd-multi-backend';
 import HTML5toTouch from 'react-dnd-multi-backend/dist/esm/HTML5toTouch';
+import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
 function App() {

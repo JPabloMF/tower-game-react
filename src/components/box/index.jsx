@@ -27,10 +27,11 @@ const handleBoxType = (type) => {
 };
 
 const StyledBox = styled.div`
-  /* background-color: black; */
-  background-image: url(${({ type }) => handleBoxType(type)});
+${({ isActive, type }) =>
+  isActive
+    ? `background-image: linear-gradient(#ffffff85, #ffffff85), url(${handleBoxType(type)});`
+    : `background-image: linear-gradient(transparent, transparent),url(${handleBoxType(type)});`}
   background-size: cover;
-  border: 1px solid red;
   width: 100px;
   height: 100px;
 `;
@@ -45,21 +46,14 @@ const Box = ({ type }) => {
     }),
   });
   const isActive = canDrop && isOver;
-  let backgroundColor = '#fff';
-  if (isActive) {
-    backgroundColor = 'darkgreen';
-  } else if (canDrop) {
-    backgroundColor = 'grey';
-  }
 
   return (
     <StyledBox
       ref={drop}
       type={type}
-      // bgColor={backgroundColor}
-      style={{ backgroundColor }}
+      isActive={isActive}
     >
-      {type}
+      {/* {type} */}
     </StyledBox>
   );
 };

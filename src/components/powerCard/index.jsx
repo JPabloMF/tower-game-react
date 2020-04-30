@@ -5,10 +5,10 @@ import { useDrag } from 'react-dnd';
 
 const StyledCard = styled.div`
   background-image: url(${({ img }) => img});
-  background-size: cover;
-  background-color: yellow;
+  background-size: contain;
+  background-repeat: no-repeat;
   position: relative;
-  border: 1px solid red;
+  border: 1px solid black;
   width: 75px;
   height: 100px;
 `;
@@ -23,13 +23,14 @@ const StyledManaCost = styled.div`
   right: 10px;
 `;
 
-const PowerCard = ({ name, img, manaCost }) => {
+const PowerCard = ({ name, img, manaCost, handleCardDroped }) => {
   const [{ isDragging }, drag] = useDrag({
     item: { name, type: 'POWER_CARD' },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
-        alert(`You dropped ${item.name} into ${dropResult.name}!`);
+        console.log(`You dropped ${item.name} into ${dropResult.name}!`);
+        handleCardDroped(manaCost);
       }
     },
     collect: (monitor) => ({
@@ -40,7 +41,7 @@ const PowerCard = ({ name, img, manaCost }) => {
   
   return (
     <StyledCard ref={drag} img={img} style={{ opacity }}>
-      <StyledManaCost>{manaCost}</StyledManaCost>
+      {/* <StyledManaCost>{manaCost}</StyledManaCost> */}
     </StyledCard>
   );
 };
