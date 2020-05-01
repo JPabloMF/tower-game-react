@@ -19,7 +19,7 @@ const ManaBar = ({ mana }) => {
   return (
     <StyledManaContainer>
       {new Array(10).fill(0).map((_, manaIndex) => (
-        <StyledManaBar filled={manaIndex + 1 <= mana} />
+        <StyledManaBar key={manaIndex} filled={manaIndex + 1 <= mana} />
       ))}
     </StyledManaContainer>
   );

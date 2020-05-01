@@ -4,24 +4,39 @@ import PropTypes from 'prop-types';
 
 const StyledBarsContainer = styled.div`
   width: 50px;
-  border: 1px solid red;
   margin: 10px 0 10px 10px;
 `;
 
-const StyledLifeBar = styled.div`
+const StyledLifeBarContainer = styled.div`
   height: 50%;
-  border: 1px solid red;
-  background-color: grey;
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid black;
+`;
+
+const StyledLife = styled.div`
+  width: 100%;
+  height: ${({life}) => `${life}%`};
+  transition: 300ms;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${({ enemy }) => (enemy ? '#fc5c65' : '#26de81')};
 `;
 
-const LifeBar = ({userLife, enemyLife}) => {
+const LifeBar = ({ userLife, enemyLife }) => {
   return (
     <StyledBarsContainer>
-      <StyledLifeBar>{enemyLife}</StyledLifeBar>
-      <StyledLifeBar>{userLife}</StyledLifeBar>
+      <StyledLifeBarContainer>
+        <StyledLife enemy life={enemyLife}>
+          {enemyLife}
+        </StyledLife>
+      </StyledLifeBarContainer>
+      <StyledLifeBarContainer>
+        <StyledLife user life={userLife}>
+          {userLife}
+        </StyledLife>
+      </StyledLifeBarContainer>
     </StyledBarsContainer>
   );
 };

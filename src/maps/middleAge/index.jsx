@@ -37,7 +37,7 @@ const MockedCards = [
   { name: 'TRIFORCE', img: triforce, manaCost: 8, damage: 25 },
 ];
 
-const MiddleAge = (props) => {
+const MiddleAge = () => {
   const [userMana, setUserMana] = useState(0);
   const [manaEnemy, setManaEnemy] = useState(0);
   const [userLife, setUserLife] = useState(100);
@@ -84,11 +84,23 @@ const MiddleAge = (props) => {
     return randomCard;
   };
 
-  const handleCardDroped = (manaCost, name) => {
+  const getEnemyDamage = (damage) => {
+    if (enemyLife - damage > 0) {
+      setEnemyLife(enemyLife - damage);
+    } else {
+      setEnemyLife(0);
+      alert("WIN!")
+    }
+  };
+
+  const handleCardDroped = (manaCost, name, damage, target) => {
     const cardDropedIndex = cards.findIndex((card) => card.name === name);
     let mockCards = [...cards];
     mockCards[cardDropedIndex] = getNewCard(name);
     setCards(mockCards);
+    if (target === 'cannon' || target === 'tower') {
+      getEnemyDamage(damage);
+    }
     if (userMana >= manaCost) {
       setUserMana(userMana - manaCost);
     }
@@ -117,6 +129,7 @@ const MiddleAge = (props) => {
             img={card.img}
             name={card.name}
             manaCost={card.manaCost}
+            damage={card.damage}
             usable={userMana < card.manaCost}
             handleCardDroped={handleCardDroped}
           />
@@ -124,10 +137,6 @@ const MiddleAge = (props) => {
       </StyledCardsContainer>
     </StyledContainer>
   );
-};
-
-MiddleAge.propTypes = {
-  props: PropTypes.object.isRequired,
 };
 
 export default MiddleAge;

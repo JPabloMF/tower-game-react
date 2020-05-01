@@ -25,14 +25,21 @@ const StyledManaCost = styled.div`
   right: 10px;
 `;
 
-const PowerCard = ({ name, img, manaCost, usable, handleCardDroped }) => {
+const PowerCard = ({
+  name,
+  img,
+  manaCost,
+  damage,
+  usable,
+  handleCardDroped,
+}) => {
   const [{ isDragging }, drag] = useDrag({
     item: { name, type: 'POWER_CARD' },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
         console.log(`You dropped ${item.name} into ${dropResult.name}!`);
-        handleCardDroped(manaCost, name);
+        handleCardDroped(manaCost, name, damage, dropResult.name);
       }
     },
     collect: (monitor) => ({
@@ -49,8 +56,12 @@ const PowerCard = ({ name, img, manaCost, usable, handleCardDroped }) => {
 };
 
 PowerCard.propTypes = {
-  img: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
   manaCost: PropTypes.number.isRequired,
+  damage: PropTypes.number.isRequired,
+  usable: PropTypes.bool.isRequired,
+  handleCardDroped: PropTypes.func.isRequired,
 };
 
 export default PowerCard;
