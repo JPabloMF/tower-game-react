@@ -19,14 +19,14 @@ const ManaBar = ({ mana }) => {
   return (
     <StyledManaContainer>
       {new Array(10).fill(0).map((_, manaIndex) => (
-        <StyledManaBar filled={manaIndex <= mana} />
+        <StyledManaBar filled={manaIndex + 1 <= mana} />
       ))}
     </StyledManaContainer>
   );
 };
 
 ManaBar.defaultProps = {
-  mana: 0
+  mana: 0,
 };
 
 ManaBar.propTypes = {

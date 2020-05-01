@@ -11,38 +11,60 @@ import twister from '../../assets/cards/twister.png';
 import thunder from '../../assets/cards/thunder.png';
 import ice from '../../assets/cards/ice.png';
 
+import poison from '../../assets/cards/poison.png';
+import speedy from '../../assets/cards/speedy.png';
+import asteroid from '../../assets/cards/asteroid.png';
+import triforce from '../../assets/cards/triforce.png';
+
 import { StyledContainer, StyledRow, StyledCardsContainer } from './styles';
+
+const MockedCards = [
+  { name: 'FIRE', img: fire, manaCost: 1, damage: 5 },
+  { name: 'TWISTER', img: twister, manaCost: 2, damage: 8 },
+  { name: 'THUNDER', img: thunder, manaCost: 3, damage: 10 },
+  { name: 'ICE', img: ice, manaCost: 4, damage: 15 },
+
+  { name: 'POISON', img: poison, manaCost: 5, damage: 17 },
+  // { name: 'BATS', img: ice, manaCost: 6, damage: 15 },
+  { name: 'SPEEDY', img: speedy, manaCost: 6, damage: 20 },
+  { name: 'ASTEROID', img: asteroid, manaCost: 7, damage: 22 },
+  { name: 'TRIFORCE', img: triforce, manaCost: 8, damage: 25 },
+];
 
 const MiddleAge = (props) => {
   const [manaUser, setManaUser] = useState(0);
   const [manaEnemy, setManaEnemy] = useState(0);
 
-  const timer = () => {
-    if (manaUser + 1 <= 9) {
+  const timerForUser = () => {
+    if (manaUser + 1 <= 10) {
       setManaUser(manaUser + 1);
     }
-    if (manaEnemy + 1 <= 9) {
+  };
+
+  const timerForEnemy = () => {
+    if (manaEnemy + 1 <= 10) {
       setManaEnemy(manaEnemy + 1);
     }
   };
 
   useEffect(() => {
-    const interval = setTimeout(timer, 1000);
+    const interval = setTimeout(timerForUser, 1000);
     return () => {
       clearInterval(interval);
     };
   }, [manaUser]);
 
   useEffect(() => {
-    const interval = setTimeout(timer, 1000);
+    const interval = setTimeout(timerForEnemy, 1000);
     return () => {
       clearInterval(interval);
     };
   }, [manaEnemy]);
 
   const handleCardDroped = (manaCost) => {
-    console.log(manaUser);
-    setManaUser(manaUser - manaCost - 1);
+    if (manaUser >= manaCost) {
+      setManaUser(manaUser - manaCost);
+    }
   };
 
   return (
@@ -57,30 +79,16 @@ const MiddleAge = (props) => {
       ))}
       <ManaBar mana={manaUser} />
       <StyledCardsContainer>
-        <PowerCard
-          img={fire}
-          name="FIRE"
-          manaCost={1}
-          handleCardDroped={handleCardDroped}
-        />
-        <PowerCard
-          img={twister}
-          name="TWISTER"
-          manaCost={2}
-          handleCardDroped={handleCardDroped}
-        />
-        <PowerCard
-          img={thunder}
-          name="THUNDER"
-          manaCost={3}
-          handleCardDroped={handleCardDroped}
-        />
-        <PowerCard
-          img={ice}
-          name="ICE POISON"
-          manaCost={4}
-          handleCardDroped={handleCardDroped}
-        />
+        {MockedCards.slice(0,4).map((card, cardIndex) => (
+          <PowerCard
+            key={cardIndex}
+            img={card.img}
+            name={card.name}
+            manaCost={card.manaCost}
+            usable={manaUser < card.manaCost}
+            handleCardDroped={handleCardDroped}
+          />
+        ))}
       </StyledCardsContainer>
     </StyledContainer>
   );
