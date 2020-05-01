@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ManaBar from '../../components/manaBar';
 import PowerCard from '../../components/powerCard';
 import Box from '../../components/box';
+import LifeBar from '../../components/lifeBar';
 import { MIDDLE_AGE_MAP } from '../maps';
 
 import fire from '../../assets/cards/fire.png';
@@ -16,7 +17,12 @@ import speedy from '../../assets/cards/speedy.png';
 import asteroid from '../../assets/cards/asteroid.png';
 import triforce from '../../assets/cards/triforce.png';
 
-import { StyledContainer, StyledRow, StyledCardsContainer } from './styles';
+import {
+  StyledContainer,
+  StyledRow,
+  StyledCardsContainer,
+  StyledBoardContainer,
+} from './styles';
 
 const MockedCards = [
   { name: 'FIRE', img: fire, manaCost: 1, damage: 5 },
@@ -32,13 +38,15 @@ const MockedCards = [
 ];
 
 const MiddleAge = (props) => {
-  const [manaUser, setManaUser] = useState(0);
+  const [userMana, setUserMana] = useState(0);
   const [manaEnemy, setManaEnemy] = useState(0);
+  const [userLife, setUserLife] = useState(100);
+  const [enemyLife, setEnemyLife] = useState(100);
   const [cards, setCards] = useState([]);
 
   const timerForUser = () => {
-    if (manaUser + 1 <= 10) {
-      setManaUser(manaUser + 1);
+    if (userMana + 1 <= 10) {
+      setUserMana(userMana + 1);
     }
   };
 
@@ -53,7 +61,7 @@ const MiddleAge = (props) => {
     return () => {
       clearInterval(interval);
     };
-  }, [manaUser]);
+  }, [userMana]);
 
   useEffect(() => {
     const interval = setTimeout(timerForEnemy, 1000);
@@ -81,22 +89,27 @@ const MiddleAge = (props) => {
     let mockCards = [...cards];
     mockCards[cardDropedIndex] = getNewCard(name);
     setCards(mockCards);
-    if (manaUser >= manaCost) {
-      setManaUser(manaUser - manaCost);
+    if (userMana >= manaCost) {
+      setUserMana(userMana - manaCost);
     }
   };
 
   return (
     <StyledContainer>
-      <ManaBar mana={manaEnemy} />
-      {MIDDLE_AGE_MAP.map((row, rowIndex) => (
-        <StyledRow key={rowIndex}>
-          {row.map((box, boxIndex) => (
-            <Box key={boxIndex} type={box.type} />
+      <StyledBoardContainer>
+        <div>
+          <ManaBar mana={manaEnemy} />
+          {MIDDLE_AGE_MAP.map((row, rowIndex) => (
+            <StyledRow key={rowIndex}>
+              {row.map((box, boxIndex) => (
+                <Box key={boxIndex} type={box.type} />
+              ))}
+            </StyledRow>
           ))}
-        </StyledRow>
-      ))}
-      <ManaBar mana={manaUser} />
+          <ManaBar mana={userMana} />
+        </div>
+        <LifeBar userLife={userLife} enemyLife={enemyLife} />
+      </StyledBoardContainer>
       <StyledCardsContainer>
         {cards.map((card, cardIndex) => (
           <PowerCard
@@ -104,7 +117,7 @@ const MiddleAge = (props) => {
             img={card.img}
             name={card.name}
             manaCost={card.manaCost}
-            usable={manaUser < card.manaCost}
+            usable={userMana < card.manaCost}
             handleCardDroped={handleCardDroped}
           />
         ))}

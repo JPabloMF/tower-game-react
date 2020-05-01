@@ -16,3 +16,7 @@ export const StyledCardsContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const StyledBoardContainer = styled.div`
+  display: flex;
+`;
