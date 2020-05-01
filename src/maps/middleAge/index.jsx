@@ -34,6 +34,7 @@ const MockedCards = [
 const MiddleAge = (props) => {
   const [manaUser, setManaUser] = useState(0);
   const [manaEnemy, setManaEnemy] = useState(0);
+  const [cards, setCards] = useState([]);
 
   const timerForUser = () => {
     if (manaUser + 1 <= 10) {
@@ -61,7 +62,25 @@ const MiddleAge = (props) => {
     };
   }, [manaEnemy]);
 
-  const handleCardDroped = (manaCost) => {
+  useEffect(() => {
+    setCards(MockedCards.slice(0, 4));
+  }, []);
+
+  const getNewCard = (name) => {
+    let randomCard = MockedCards.sort(() => 0.5 - Math.random()).slice(0, 1)[0];
+    let existCard = cards.some((card) => card.name === randomCard.name);
+    while (randomCard.name === name || existCard) {
+      randomCard = MockedCards.sort(() => 0.5 - Math.random()).slice(0, 1)[0];
+      existCard = cards.some((card) => card.name === randomCard.name);
+    }
+    return randomCard;
+  };
+
+  const handleCardDroped = (manaCost, name) => {
+    const cardDropedIndex = cards.findIndex((card) => card.name === name);
+    let mockCards = [...cards];
+    mockCards[cardDropedIndex] = getNewCard(name);
+    setCards(mockCards);
     if (manaUser >= manaCost) {
       setManaUser(manaUser - manaCost);
     }
@@ -79,7 +98,7 @@ const MiddleAge = (props) => {
       ))}
       <ManaBar mana={manaUser} />
       <StyledCardsContainer>
-        {MockedCards.slice(0,4).map((card, cardIndex) => (
+        {cards.map((card, cardIndex) => (
           <PowerCard
             key={cardIndex}
             img={card.img}

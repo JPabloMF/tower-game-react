@@ -6,7 +6,7 @@ import { useDrag } from 'react-dnd';
 const StyledCard = styled.div`
   background-image: url(${({ img }) => img});
   opacity: ${({ isUsable }) => (isUsable ? 0.4 : 1)};
-  pointer-events: ${({ isUsable }) => (isUsable ?  'none': 'inherit')};
+  pointer-events: ${({ isUsable }) => (isUsable ? 'none' : 'inherit')};
   background-size: contain;
   background-repeat: no-repeat;
   position: relative;
@@ -32,7 +32,7 @@ const PowerCard = ({ name, img, manaCost, usable, handleCardDroped }) => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
         console.log(`You dropped ${item.name} into ${dropResult.name}!`);
-        handleCardDroped(manaCost);
+        handleCardDroped(manaCost, name);
       }
     },
     collect: (monitor) => ({
