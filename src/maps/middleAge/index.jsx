@@ -98,7 +98,7 @@ const MiddleAge = () => {
     let mockCards = [...cards];
     mockCards[cardDropedIndex] = getNewCard(name);
     setCards(mockCards);
-    if (target === 'cannon' || target === 'tower') {
+    if (target === 'enemyCannon' || target === 'enemyTower') {
       getEnemyDamage(damage);
     }
     if (userMana >= manaCost) {

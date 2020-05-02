@@ -6,6 +6,7 @@ import { useDrop } from 'react-dnd';
 import wood from '../../assets/textures/wood.png';
 import grass from '../../assets/textures/grass.png';
 import floorCannon from '../../assets/textures/floorcannon.png';
+import floorCannonFront from '../../assets/textures/floorcannonfront.png';
 import floorTower from '../../assets/textures/floortower.png';
 import water from '../../assets/textures/water.png';
 
@@ -16,8 +17,12 @@ const handleBoxType = (type) => {
     case 'grass':
       return grass;
     case 'cannon':
-      return floorCannon;
+      return floorCannonFront;
     case 'tower':
+      return floorTower;
+    case 'enemyCannon':
+      return floorCannon;
+    case 'enemyTower':
       return floorTower;
     case 'water':
       return water;
