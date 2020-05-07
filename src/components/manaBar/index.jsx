@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import mana from '../../assets/textures/energy.png';
+
 const StyledManaContainer = styled.div`
   display: flex;
   width: 300px;
@@ -10,8 +12,10 @@ const StyledManaContainer = styled.div`
 `;
 
 const StyledManaBar = styled.div`
-  background-color: ${({ filled }) => (filled ? 'black' : 'transparent')};
-  border: 1px solid red;
+  /* background-color: ${({ filled }) => (filled ? 'black' : 'transparent')}; */
+  background-image: url(${({ filled }) => (filled ? mana : null)});
+  /* border: 1px solid red; */
+  margin: 0 5px;
   width: 30px;
 `;
 
